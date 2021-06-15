@@ -7,6 +7,7 @@ import com.jumia.eg.repositoies.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,21 @@ public class CustomerServiceImpl implements CustomerService {
         List<CustomerDTO> customerDTOS = customers.stream().map(CustomerDTO::new).collect(Collectors.toList());
         return customerDTOS;
 
+    }
+
+    @Override
+    public List<CustomerDTO> getCustomersListValidPhones() {
+        List<Customer> customers = customerRepository.findAll();
+        List<CustomerDTO> customerDTOS = new ArrayList<>();
+        for (Customer customer : customers) {
+            for (String reg : Constants.regExList) {
+                if (reg.matches(customer.getPhone())) {
+                    customerDTOS.add(new CustomerDTO(customer));
+                    break;
+                }
+            }
+        }
+        return customerDTOS;
     }
 
     @Override

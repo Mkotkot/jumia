@@ -64,17 +64,12 @@ public class CustomerServiceTest {
     @Test
     public void TestCustomersPhones() {
 
-        List<String> list = new ArrayList();
-        list.add("\\(237\\)\\ ?[2368]\\d{7,8}$");
-        list.add("\\(251\\)\\ ?[1-59]\\d{8}$");
-        list.add("\\(212\\)\\ ?[5-9]\\d{8}$");
-        list.add("\\(258\\)\\ ?[28]\\d{7,8}$");
-        list.add("\\(256\\)\\ ?\\d{9}$");
+
         List<CustomerDTO> customers = customerService.getCustomersList();
         AtomicBoolean flag = new AtomicBoolean(false);
         customers.forEach(dto -> {
             flag.set(false);
-            for (String reg : list) {
+            for (String reg : Constants.regExList) {
                 if (dto.getPhone().matches(reg)) {
                     flag.set(true);
                     break;
