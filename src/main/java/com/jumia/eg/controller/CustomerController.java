@@ -44,6 +44,15 @@ public class CustomerController {
         return "/ViewList";
     }
 
+    @GetMapping("view/valid")
+    public String getViewCustomerPageValid(Model model) {
+        CustomerForm customerForm = new CustomerForm();
+        List<CustomerDTO> customerDTOS = customerService.getCustomersListValidPhones();
+        model.addAttribute("customersListData", customerDTOS);
+        model.addAttribute("CustomersReportForm", customerForm);
+        return "/ViewList";
+    }
+
     @GetMapping("view/filter")
     public String getViewFilterCustomerPage(Model model, @ModelAttribute("CustomerReportForm") CustomerForm customerForm) {
         List<CustomerDTO> customerDTOS = customerService.getCustomersList(customerForm.getCountry());
