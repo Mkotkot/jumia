@@ -20,4 +20,8 @@ public class CustomerDTO implements Serializable {
         this.country = customer.getCountry();
     }
 
+    //todo for testing
+    public CustomerDTO(String phone) {
+        this.phone = phone;
+    }
 }
